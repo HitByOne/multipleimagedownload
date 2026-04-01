@@ -25,6 +25,33 @@ st.title("🖼️ Product Image Batch Downloader")
 st.markdown("Upload your Excel file with product items and image URLs. Images will be downloaded, converted to JPG, and packaged into a ZIP for download.")
 
 # ==========================================================
+# TEMPLATE DOWNLOAD
+# ==========================================================
+def build_template() -> bytes:
+    template_data = {
+        "Item": ["FSIAW7350-7D", "FSIAW7350-7-5D", "FSIAW7350-10-5EE"],
+        "Image 1": ["https://example.com/img1.png", "https://example.com/img2.png", "https://example.com/img3.png"],
+        "Image 2": ["https://example.com/img1b.png", "", ""],
+        "Image 3": ["", "", ""],
+    }
+    df_template = pd.DataFrame(template_data)
+    buf = BytesIO()
+    df_template.to_excel(buf, index=False)
+    return buf.getvalue()
+
+with st.expander("📥 Need a template?"):
+    st.markdown(
+        "Download the template below. Fill in the **Item** column with your product SKUs "
+        "and paste image URLs into the **Image 1**, **Image 2**, ... columns. Leave cells blank if there's no image for that position."
+    )
+    st.download_button(
+        label="⬇️ Download Excel Template",
+        data=build_template(),
+        file_name="image_downloader_template.xlsx",
+        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    )
+
+# ==========================================================
 # SETTINGS SIDEBAR
 # ==========================================================
 with st.sidebar:
