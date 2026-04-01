@@ -1,2 +1,6 @@
+streamlit
+pandas
+pillow
 requests
-openxyl
+openpyxl
+urllib3
