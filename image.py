@@ -64,14 +64,8 @@ with st.sidebar:
 # ==========================================================
 # HELPERS
 # ==========================================================
-ITEM_RE = re.compile(r"^(?P<base>.+?)-(?P<size>\d+(?:-\d+)*)(?P<width>EE|D)$", re.IGNORECASE)
-
 def get_base(item: str) -> str:
-    s = str(item).strip()
-    m = ITEM_RE.match(s)
-    if m:
-        return m.group("base")
-    return s.rsplit("-", 1)[0] if "-" in s else s
+    return str(item).strip()
 
 def is_blank(v) -> bool:
     if v is None:
